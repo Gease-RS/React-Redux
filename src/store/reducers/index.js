@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { ADICIONAR_UM } from '../actions/types';
 
-const valoresReducer = (state = {valor: 0}, action) => {
+const valoresReducer = (state = {valor: 100000}, action) => {
     switch(action.type){
         case ADICIONAR_UM:
             return { ...state, valor: state.valor + 1 }
