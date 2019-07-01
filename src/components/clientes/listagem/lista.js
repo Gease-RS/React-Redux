@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions';
 
 const Cliente = (cliente) => {
     <tr>
@@ -10,8 +12,12 @@ const Cliente = (cliente) => {
 }
 
 class ListaClientes extends React.Component {
-    render() {
+    
+    componentDidMount(){
+        this.props.getClientes
+    }
 
+    render() {
         const {data} = this.props;
         return(
             <div className="ListaClientes">
@@ -37,3 +43,9 @@ class ListaClientes extends React.Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    clientes: state.clientes.clientes
+})
+
+export default connect(mapStateToProps, actions)(ListaClientes)

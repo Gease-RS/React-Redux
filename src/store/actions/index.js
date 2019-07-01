@@ -2,7 +2,8 @@ import {
     GET_CLIENTES,
     ADD_CLIENTE,
     UPDATE_CLIENTE,
-    REMOVE_CLIENTE
+    REMOVE_CLIENTE,
+    SET_ORDENACAO
 } from './types';
 
 const getDate = () => new Date().getTime();
@@ -35,3 +36,5 @@ export const addCliente = (cliente) => ({ type: ADD_CLIENTE, cliente: prepararCl
 export const updateCliente = (id, cliente) => ({ type: UPDATE_CLIENTE, cliente: { id, ...cliente, atualizadoEm} });
 
 export const removeCliente = (id) => ({type: REMOVE_CLIENTE, id });
+
+export const setOrdenacao = (ev) => ({ type: SET_ORDENACAO, ordenacao: ev.target.value })
