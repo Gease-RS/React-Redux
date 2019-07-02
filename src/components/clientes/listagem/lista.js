@@ -17,6 +17,19 @@ class ListaClientes extends React.Component {
         this.props.getClientes
     }
 
+    ordenacao = (a, b) => {
+        const { ordenacao } = this.props
+        if( ordenacao === 'a-z') return a.nome.localeCompare(b.nome)
+        else if( ordenacao === 'z-a' ) return -1 * a.nome.localeCompare(b.nome)
+        else if( ordenacao === 'criacao' ) return new Date(a.criadoEm) - new Date(b.criadoEm)
+    }
+
+    Pesquisa = ({ nome, endereco, email, cpf }) => {
+        const { pesquisa } = this.props
+        const item = [nome,enderco,email,cpf].join(';');
+        return item.includes(pesquisa)
+    }
+
     render() {
         const {data} = this.props;
         return(
@@ -32,7 +45,10 @@ class ListaClientes extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            data.map((cliente, index) => (
+                            data
+                            .filter(this.pesquisa)
+                            .sort(this.ordenacao)
+                            .map((cliente, index) => (
                                 <Cliente cliente={cliente} key={index} />
                             ))
                         }
@@ -45,7 +61,9 @@ class ListaClientes extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    clientes: state.clientes.clientes
+    clientes: state.clientes.clientes,
+    ordenacao: state.clientes.ordenacao,
+    pesquisa: state.clientes.pesquisa
 })
 
 export default connect(mapStateToProps, actions)(ListaClientes)
